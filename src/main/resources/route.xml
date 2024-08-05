@@ -1,0 +1,6 @@
+<configuration>
+    <entry key="Login_Request">Test</entry>
+    <entry key="Test_Request">Test</entry>
+    <entry key="SendMessageRequest">Test</entry>
+    <handlerPath key="Login_Request">com.example.demo.handler</handlerPath>
+</configuration>
