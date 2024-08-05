@@ -42,7 +42,6 @@ public class MyServerHandler extends SimpleChannelInboundHandler<GDM.Message> im
     @Override
     public void route(ChannelHandlerContext ctx, GDM.Message message) throws Exception {
         GDM.Request request = message.getRequest();
-        GDM.LoginRequest login = request.getLogin();
         GDM.MSG msgType = message.getMsgType();
         String nameClass = msgType.name();
         //执行方法
