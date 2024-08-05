@@ -23,9 +23,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class RouteExecution  {
+public class RouteExecution {
     private static final Map<String, String> ENUMTOCLASSMAP = new HashMap<>();
-    private static  String HANDLERPATH ="";
+    private static String HANDLERPATH = "";
+
     static {
         try {
             // 使用ClassLoader来加载资源
@@ -58,6 +59,7 @@ public class RouteExecution  {
                 .setUrls(ClasspathHelper.forPackage(HANDLERPATH))
                 .setScanners(new SubTypesScanner(false)));
 
+        boolean flag = false;
         Set<Class<? extends RouteServer>> classes = reflections.getSubTypesOf(RouteServer.class);
         for (Class<?> clazz : classes) {
             if (clazz.isAnnotationPresent(ToServer.class)) {
@@ -81,6 +83,7 @@ public class RouteExecution  {
                             continue;
                         }
                         try {
+                            flag=true;
                             method.setAccessible(true);
                             method.invoke(bean, ctx, request);
                             ctx.close();
@@ -91,6 +94,9 @@ public class RouteExecution  {
                     }
                 }
             }
+        }
+        if (!flag){
+            ctx.close();
         }
     }
 
